@@ -1,5 +1,76 @@
 
 
+
+ 
+
+  
+    
+     
+   
+    
+ 
+    
+    
+  
+
+  
+   
+     
+     
+  
+
+   
+    
+      
+    
+     
+   
+
+   
+     
+      
+  
+
+   
+   
+ 
+  
+
+    
+
+  
+   
+
+   
+  
+
+
+ 
+     
+
+  
+
+
+
+ 
+
+ 
+    
+    
+      
+       
+        
+        <
+    
+    
+   
+
+ 
+       
+    
+
+
+ 
   <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -46,25 +117,25 @@
       color: #64748b;
     }
 
-    /* 3. 카드 컨테이너(배치) */
+    /* 3. 카드 컨테이너(배치) - 4개 카드가 잘 들어가도록 너비 확장 */
     .card-container {
       display: flex;
-      gap: 24px;
-      max-width: 1100px;
+      gap: 20px;
+      max-width: 1200px;
       width: 100%;
       justify-content: center;
-      flex-wrap: wrap; /* 화면이 좁아지면 아래로 정렬 */
+      flex-wrap: wrap; /* 화면이 좁아지면 2줄 또는 1줄로 자동 정렬 */
     }
 
     /* 4. 개별 카드 디자인 */
     .card {
       flex: 1;
-      min-width: 280px;
-      max-width: 340px;
+      min-width: 250px;
+      max-width: 280px;
       background: #151c2e;
       border: 1px solid #232f48;
       border-radius: 20px;
-      padding: 32px 24px;
+      padding: 28px 20px;
       cursor: pointer;
       text-decoration: none;
       color: inherit;
@@ -86,6 +157,7 @@
     .card-1:hover { box-shadow: 0 15px 30px rgba(59, 130, 246, 0.25); }
     .card-2:hover { box-shadow: 0 15px 30px rgba(236, 72, 153, 0.25); }
     .card-3:hover { box-shadow: 0 15px 30px rgba(16, 185, 129, 0.25); }
+    .card-4:hover { box-shadow: 0 15px 30px rgba(168, 85, 247, 0.25); } /* 4번 보라색 포인트 */
 
     .icon-box {
       width: 50px;
@@ -95,23 +167,24 @@
       align-items: center;
       justify-content: center;
       font-size: 24px;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
     .card-1 .icon-box { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
     .card-2 .icon-box { background: rgba(236, 72, 153, 0.15); color: #ec4899; }
     .card-3 .icon-box { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+    .card-4 .icon-box { background: rgba(168, 85, 247, 0.15); color: #a855f7; } /* 4번 아이콘 배경 */
 
     .card-content h3 {
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 700;
       margin-bottom: 10px;
     }
 
     .card-content p {
-      font-size: 14px;
+      font-size: 13.5px;
       color: #94a3b8;
-      line-height: 1.6;
+      line-height: 1.5;
       margin-bottom: 24px;
     }
 
@@ -126,6 +199,7 @@
     .card-1 .card-link { color: #60a5fa; }
     .card-2 .card-link { color: #f472b6; }
     .card-3 .card-link { color: #34d399; }
+    .card-4 .card-link { color: #c084fc; } /* 4번 텍스트 컬러 */
   </style>
 </head>
 <body>
@@ -143,16 +217,16 @@
         <h3>검색 & 정보</h3>
         <p>전 세계의 다양한 최신 정보와 문서를 빠르고 정확하게 찾아보세요.</p>
       </div>
-      <div class="card-link">바로가기 &rarr;</div>
+      <div class="card-link">바로가기 →</div>
     </a>
 
-   <a href="https://www.youtube.com/@milye-7707" target="_blank" class="card card-2">
+    <a href="https://www.youtube.com/@milye-7707" target="_blank" class="card card-2">
       <div class="card-content">
         <div class="icon-box">🎬</div>
         <h3>유튜브 채널</h3>
         <p>milye 채널의 최신 영상과 콘텐츠를 바로 확인해보세요.</p>
       </div>
-      <div class="card-link">채널 방문하기 &rarr;</div>
+      <div class="card-link">채널 방문하기 →</div>
     </a>
 
     <a href="https://maps.google.com" target="_blank" class="card card-3">
@@ -161,23 +235,32 @@
         <h3>지도 & 여행</h3>
         <p>추천 명소와 맛집 경로를 확인하고 나만의 일정을 계획해보세요.</p>
       </div>
-      <div class="card-link">바로가기 &rarr;</div>
+      <div class="card-link">바로가기 →</div>
+    </a>
+
+    <a href="upload.html" class="card card-4">
+      <div class="card-content">
+        <div class="icon-box">📷</div>
+        <h3>사진 업로드</h3>
+        <p>소중한 순간이 담긴 사진을 드래그하여 간편하게 올려보세요.</p>
+      </div>
+      <div class="card-link">업로드하기 →</div>
     </a>
 
   </main>
 
   <script>
-    // JS: 카드 클릭 시 콘솔 기록 (추후 분석이나 추가 액션 확장용)
+    // JS: 카드 클릭 시 콘솔 기록
     const cards = document.querySelectorAll('.card');
     cards.forEach((card, index) => {
-      card.addEventListener('click', (e) => {
+      card.addEventListener('click', () => {
         console.log(`${index + 1}번 카드가 클릭되어 이동합니다.`);
       });
     });
   </script>
 </body>
 </html>
-    
+
  
   
 
