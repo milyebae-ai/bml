@@ -1,7 +1,3 @@
-
-
-
- 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -48,14 +44,14 @@
       color: #64748b;
     }
 
-    /* 3. 카드 컨테이너(배치) - 4개 카드가 잘 들어가도록 너비 확장 */
+    /* 3. 카드 컨테이너(배치) */
     .card-container {
       display: flex;
       gap: 20px;
       max-width: 1200px;
       width: 100%;
       justify-content: center;
-      flex-wrap: wrap; /* 화면이 좁아지면 2줄 또는 1줄로 자동 정렬 */
+      flex-wrap: wrap; /* 반응형 자동 줄바꿈 */
     }
 
     /* 4. 개별 카드 디자인 */
@@ -78,17 +74,17 @@
       overflow: hidden;
     }
 
-    /* 카드 호버(마우스 올림) 시 떠오름 및 그림자 효과 */
+    /* 카드 마우스 호버(Hover) 시 떠오름 효과 */
     .card:hover {
       transform: translateY(-8px);
       border-color: rgba(255, 255, 255, 0.2);
     }
 
-    /* 카드별 고유 네온 포인트 */
+    /* 각 카드별 네온 포인트 색상 */
     .card-1:hover { box-shadow: 0 15px 30px rgba(59, 130, 246, 0.25); }
     .card-2:hover { box-shadow: 0 15px 30px rgba(236, 72, 153, 0.25); }
     .card-3:hover { box-shadow: 0 15px 30px rgba(16, 185, 129, 0.25); }
-    .card-4:hover { box-shadow: 0 15px 30px rgba(168, 85, 247, 0.25); } /* 4번 보라색 포인트 */
+    .card-4:hover { box-shadow: 0 15px 30px rgba(168, 85, 247, 0.25); }
 
     .icon-box {
       width: 50px;
@@ -104,7 +100,7 @@
     .card-1 .icon-box { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
     .card-2 .icon-box { background: rgba(236, 72, 153, 0.15); color: #ec4899; }
     .card-3 .icon-box { background: rgba(16, 185, 129, 0.15); color: #10b981; }
-    .card-4 .icon-box { background: rgba(168, 85, 247, 0.15); color: #a855f7; } /* 4번 아이콘 배경 */
+    .card-4 .icon-box { background: rgba(168, 85, 247, 0.15); color: #a855f7; }
 
     .card-content h3 {
       font-size: 19px;
@@ -130,18 +126,19 @@
     .card-1 .card-link { color: #60a5fa; }
     .card-2 .card-link { color: #f472b6; }
     .card-3 .card-link { color: #34d399; }
-    .card-4 .card-link { color: #c084fc; } /* 4번 텍스트 컬러 */
+    .card-4 .card-link { color: #c084fc; }
   </style>
 </head>
 <body>
 
   <header class="header">
     <h1>원하는 서비스를 선택하세요</h1>
-    <p>아래 카드 중 하나를 클릭하면 해당 페이지로 이동합니다.</p>
+    <p>아래 카드 중 하나를 클릭하면 해당 서비스로 바로 이동합니다.</p>
   </header>
 
   <main class="card-container">
     
+    <!-- 1번 카드: 구글 검색 -->
     <a href="https://google.com" target="_blank" class="card card-1">
       <div class="card-content">
         <div class="icon-box">🔍</div>
@@ -151,6 +148,7 @@
       <div class="card-link">바로가기 →</div>
     </a>
 
+    <!-- 2번 카드: 유튜브 채널 -->
     <a href="https://www.youtube.com/@milye-7707" target="_blank" class="card card-2">
       <div class="card-content">
         <div class="icon-box">🎬</div>
@@ -160,6 +158,7 @@
       <div class="card-link">채널 방문하기 →</div>
     </a>
 
+    <!-- 3번 카드: 구글 지도 -->
     <a href="https://maps.google.com" target="_blank" class="card card-3">
       <div class="card-content">
         <div class="icon-box">🗺️</div>
@@ -168,15 +167,16 @@
       </div>
       <div class="card-link">바로가기 →</div>
     </a>
+    <!-- 4번 카드: 구글 드라이브 -->
+   <a href="https://drive.google.com/drive/home" target="_blank" class="card card-4">
+      <div class="card-content">
+        <div class="icon-box">📁</div>
+        <h3>구글 드라이브</h3>
+        <p>내 드라이브로 바로 이동해 사진 및 파일을 안전하게 보관하고 관리하세요.</p>
+      </div>
+      <div class="card-link">드라이브 열기 →</div>
+    </a>
 
- <a href="https://drive.google.com/" target="_blank" rel="noopener noreferrer" class="card card-4">
-  <div class="card-content">
-    <div class="icon-box">📁</div>
-    <h3>구글 드라이브</h3>
-    <p>내 드라이브로 바로 이동해 사진 및 파일을 안전하게 보관하고 관리하세요.</p>
-  </div>
-  <div class="card-link">드라이브 열기 →</div>
-</a>
   </main>
 
   <script>
@@ -187,13 +187,56 @@
         console.log(`${index + 1}번 카드가 클릭되어 이동합니다.`);
       });
     });
-
-  
   </script>
 </body>
 </html>
-  
+
+   
+
+
+
+
+   
     
+   
+
+
+     
+   
+     
+    
+  
+
+   
+ 
+   
+  
+
+   
+  
+   
+   
+    
+
+
+ 
+ 
+      
+   
+   
+
+  
+
+
+
+
+
+
+   
+
+
+
+
      
    
     
