@@ -1,385 +1,207 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>나의 미디어 작품 갤러리</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>다크 메인 허브</title>
+  <style>
+    /* 1. 기본 리셋 및 다크 배경 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Segoe UI", sans-serif;
+    }
 
-        body {
-            font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
-            background-color: #f4f6f9;
-            color: #222;
-            padding: 30px 20px;
-        }
+    body {
+      min-height: 100vh;
+      background-color: #0b0f19; /* 깊은 어두운 남색 */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+      color: #ffffff;
+    }
 
-        header {
-            text-align: center;
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #ddd;
-        }
+    /* 2. 상단 헤더 영역 */
+    .header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
 
-        header h1 {
-            font-size: 2rem;
-            color: #1a365d;
-            margin-bottom: 8px;
-        }
+    .header h1 {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #ffffff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-        header p {
-            font-size: 1.1rem;
-            color: #555;
-        }
+    .header p {
+      font-size: 16px;
+      color: #64748b;
+    }
 
-        /* 탭 버튼 메뉴 */
-        .category-nav {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
+    /* 3. 카드 컨테이너(배치) */
+    .card-container {
+      display: flex;
+      gap: 20px;
+      max-width: 1200px;
+      width: 100%;
+      justify-content: center;
+      flex-wrap: wrap; /* 반응형 자동 줄바꿈 */
+    }
 
-        .tab-btn {
-            background-color: #ffffff;
-            border: 2px solid #cbd5e0;
-            color: #4a5568;
-            padding: 10px 24px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
+    /* 4. 개별 카드 디자인 */
+    .card {
+      flex: 1;
+      min-width: 250px;
+      max-width: 280px;
+      background: #151c2e;
+      border: 1px solid #232f48;
+      border-radius: 20px;
+      padding: 28px 20px;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative;
+      overflow: hidden;
+    }
 
-        .tab-btn:hover {
-            background-color: #edf2f7;
-        }
+    /* 카드 마우스 호버(Hover) 시 떠오름 효과 */
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
 
-        .tab-btn.active {
-            background-color: #1a365d;
-            border-color: #1a365d;
-            color: #ffffff;
-        }
+    /* 각 카드별 네온 포인트 색상 */
+    .card-1:hover { box-shadow: 0 15px 30px rgba(59, 130, 246, 0.25); }
+    .card-2:hover { box-shadow: 0 15px 30px rgba(236, 72, 153, 0.25); }
+    .card-3:hover { box-shadow: 0 15px 30px rgba(16, 185, 129, 0.25); }
+    .card-4:hover { box-shadow: 0 15px 30px rgba(168, 85, 247, 0.25); }
 
-        /* 갤러리 반응형 그리드 */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+    .icon-box {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
 
-        /* 개별 작품 카드 */
-        .art-card {
-            background: #ffffff;
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            display: none; /* 기본 숨김 후 선택된 탭만 노출 */
-            flex-direction: column;
-            position: relative;
-        }
+    .card-1 .icon-box { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+    .card-2 .icon-box { background: rgba(236, 72, 153, 0.15); color: #ec4899; }
+    .card-3 .icon-box { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+    .card-4 .icon-box { background: rgba(168, 85, 247, 0.15); color: #a855f7; }
 
-        /* 미디어 박스 */
-        .media-container {
-            width: 100%;
-            height: 230px;
-            background-color: #000;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    .card-content h3 {
+      font-size: 19px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
 
-        .art-media {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+    .card-content p {
+      font-size: 13.5px;
+      color: #94a3b8;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
 
-        /* 배지 */
-        .media-badge {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            background: rgba(0, 0, 0, 0.75);
-            color: #fff;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            z-index: 2;
-        }
+    .card-link {
+      font-size: 14px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
 
-        .art-body {
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .art-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #2d3748;
-            margin-bottom: 10px;
-        }
-
-        /* 좋아요 버튼 */
-        .like-section {
-            margin-bottom: 10px;
-        }
-
-        .like-btn {
-            background-color: #fff0f3;
-            border: 1.5px solid #ff4d6d;
-            color: #ff4d6d;
-            padding: 6px 14px;
-            font-size: 0.95rem;
-            font-weight: bold;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .like-btn:hover {
-            background-color: #ff4d6d;
-            color: white;
-        }
-
-        /* 댓글 영역 */
-        .comment-section {
-            margin-top: auto;
-            border-top: 1px solid #edf2f7;
-            padding-top: 10px;
-        }
-
-        .comment-input-box {
-            display: flex;
-            gap: 6px;
-            margin-bottom: 8px;
-        }
-
-        .comment-input {
-            flex-grow: 1;
-            padding: 7px 10px;
-            font-size: 0.9rem;
-            border: 1px solid #cbd5e0;
-            border-radius: 6px;
-            outline: none;
-        }
-
-        .comment-btn {
-            background-color: #3182ce;
-            color: white;
-            border: none;
-            padding: 7px 12px;
-            font-size: 0.9rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            white-space: nowrap;
-        }
-
-        .comment-list {
-            list-style: none;
-            max-height: 90px;
-            overflow-y: auto;
-            background-color: #f7fafc;
-            border-radius: 6px;
-            padding: 6px;
-            font-size: 0.85rem;
-        }
-
-        .comment-list li {
-            padding: 4px 6px;
-            border-bottom: 1px dashed #e2e8f0;
-            color: #4a5568;
-            word-break: break-all;
-        }
-
-        .comment-list li:last-child {
-            border-bottom: none;
-        }
-    </style>
+    .card-1 .card-link { color: #60a5fa; }
+    .card-2 .card-link { color: #f472b6; }
+    .card-3 .card-link { color: #34d399; }
+    .card-4 .card-link { color: #c084fc; }
+  </style>
 </head>
 <body>
 
-    <header>
-        <h1>🎬 나의 온라인 미디어 갤러리</h1>
-        <p>멋진 사진과 영상을 감상하시고 좋아요와 따뜻한 한 줄 댓글을 남겨주세요!</p>
-    </header>
+  <header class="header">
+    <h1>원하는 서비스를 선택하세요</h1>
+    <p>아래 카드 중 하나를 클릭하면 해당 서비스로 바로 이동합니다.</p>
+  </header>
 
-    <!-- 사진 / 동영상 2개 카테고리 탭 -->
-    <div class="category-nav">
-        <button class="tab-btn active" onclick="filterCategory('image', this)">🖼️ 사진 갤러리</button>
-        <button class="tab-btn" onclick="filterCategory('video', this)">🎥 동영상 갤러리</button>
-    </div>
+  <main class="card-container">
+    
+    <!-- 1번 카드: 구글 검색 -->
+    <a href="https://google.com" target="_blank" class="card card-1">
+      <div class="card-content">
+        <div class="icon-box">🔍</div>
+        <h3>검색 & 정보</h3>
+        <p>전 세계의 다양한 최신 정보와 문서를 빠르고 정확하게 찾아보세요.</p>
+      </div>
+      <div class="card-link">바로가기 →</div>
+    </a>
 
-    <!-- 갤러리 그리드 -->
-    <div class="gallery-grid" id="galleryContainer"></div>
+    <!-- 2번 카드: 유튜브 채널 -->
+    <a href="https://www.youtube.com/@milye-7707" target="_blank" class="card card-2">
+      <div class="card-content">
+        <div class="icon-box">🎬</div>
+        <h3>유튜브 채널</h3>
+        <p>milye 채널의 최신 영상과 콘텐츠를 바로 확인해보세요.</p>
+      </div>
+      <div class="card-link">채널 방문하기 →</div>
+    </a>
 
-    <script>
-        const totalItems = 100;
-        const container = document.getElementById('galleryContainer');
-        let currentFilter = 'image'; // 기본 시작 카테고리: 사진
+    <!-- 3번 카드: 구글 지도 -->
+    <a href="https://maps.google.com" target="_blank" class="card card-3">
+      <div class="card-content">
+        <div class="icon-box">🗺️</div>
+        <h3>지도 & 여행</h3>
+        <p>추천 명소와 맛집 경로를 확인하고 나만의 일정을 계획해보세요.</p>
+      </div>
+      <div class="card-link">바로가기 →</div>
+    </a>
 
-        for (let i = 1; i <= totalItems; i++) {
-            const card = document.createElement('div');
-            card.className = 'art-card';
-            card.id = `card-${i}`;
-            card.setAttribute('data-type', 'video'); // 기본 탐색 타입
+    구글 드라이브 (사진 업로드용) -->
+   <a href="https://drive.google.com/" target="_blank" rel="noopener noreferrer" class="card card-4">
+  <div class="card-content">
+    <div class="icon-box">📁</div>
+    <h3>구글 드라이브</h3>
+    <p>내 드라이브로 바로 이동해 사진 및 파일을 안전하게 보관하고 관리하세요.</p>
+  </div>
+  <div class="card-link">드라이브 열기 →</div>
+</a>
+<a href="https://my-lcfbmyake-milyebae.vercel.app/" class="card card-5">
+      <div class="card-content">
+        <div class="icon-box">🖼️</div>
+        <h3>포토 갤러리</h3>
+        <p>여행과 일상의 소중한 기록이 담긴 사진 앨범을 감상해 보세요.</p>
+      </div>
+      <div class="card-link">앨범 보기 →</div>
+    </a>
+  </main>
 
-            card.innerHTML = `
-                <span class="media-badge" id="badge-${i}">🎥 동영상</span>
-                <div class="media-container" id="mediaBox-${i}">
-                    <video class="art-media" 
-                           controls 
-                           playsinline 
-                           preload="metadata" 
-                           src="${i}.mp4" 
-                           onloadeddata="checkDisplay(${i})"
-                           onerror="fallbackToImage(${i})">
-                    </video>
-                </div>
-                
-                <div class="art-body">
-                    <div class="art-title">작품 ${i}</div>
-                    
-                    <div class="like-section">
-                        <button class="like-btn" id="likeBtn-${i}" onclick="toggleLike(${i})">
-                            ❤️ 좋아요 <span id="likeCount-${i}">0</span>
-                        </button>
-                    </div>
-
-                    <div class="comment-section">
-                        <div class="comment-input-box">
-                            <input type="text" id="commentInput-${i}" class="comment-input" placeholder="댓글 입력..." onkeypress="handleEnter(event, ${i})">
-                            <button class="comment-btn" onclick="addComment(${i})">등록</button>
-                        </div>
-                        <ul class="comment-list" id="commentList-${i}">
-                            <li>💬 첫 번째 댓글을 남겨보세요!</li>
-                        </ul>
-                    </div>
-                </div>
-            `;
-            container.appendChild(card);
-        }
-
-        // 동영상이 정상 로드되었을 때 현재 탭에 맞춰 화면 표시
-        function checkDisplay(id) {
-            const card = document.getElementById(`card-${id}`);
-            if (card && currentFilter === 'video') {
-                card.style.display = 'flex';
-            }
-        }
-
-        // 1단계: 동영상(i.mp4)이 없으면 사진(i.jpg)으로 교체
-        function fallbackToImage(id) {
-            const card = document.getElementById(`card-${id}`);
-            const mediaBox = document.getElementById(`mediaBox-${id}`);
-            const badge = document.getElementById(`badge-${id}`);
-
-            if (card) card.setAttribute('data-type', 'image');
-            if (badge) badge.innerText = "🖼️ 사진";
-            
-            mediaBox.innerHTML = `
-                <img src="${id}.jpg" 
-                     alt="작품 ${id}" 
-                     class="art-media" 
-                     onload="onImageLoaded(${id})"
-                     onerror="hideCard(${id})">
-            `;
-        }
-
-        // 사진 파일이 정상 로드되었을 때 (기본 탭인 사진 탭일 때 즉시 표시)
-        function onImageLoaded(id) {
-            const card = document.getElementById(`card-${id}`);
-            if (card && currentFilter === 'image') {
-                card.style.display = 'flex';
-            }
-        }
-
-        // 2단계: 사진도 없으면 완전 숨김
-        function hideCard(id) {
-            const card = document.getElementById(`card-${id}`);
-            if (card) {
-                card.setAttribute('data-type', 'none');
-                card.style.display = 'none';
-            }
-        }
-
-        // 카테고리 전환 (사진 <-> 동영상)
-        function filterCategory(type, btnElement) {
-            currentFilter = type;
-
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            btnElement.classList.add('active');
-
-            for (let i = 1; i <= totalItems; i++) {
-                const card = document.getElementById(`card-${i}`);
-                if (!card) continue;
-
-                const cardType = card.getAttribute('data-type');
-                
-                if (cardType === type) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            }
-        }
-
-        // 좋아요 카운트
-        function toggleLike(id) {
-            const countSpan = document.getElementById(`likeCount-${id}`);
-            let count = parseInt(countSpan.innerText, 10);
-            countSpan.innerText = count + 1;
-        }
-
-        // 댓글 등록
-        function addComment(id) {
-            const input = document.getElementById(`commentInput-${id}`);
-            const text = input.value.trim();
-            if (text === "") {
-                alert("댓글 내용을 입력해 주세요.");
-                return;
-            }
-
-            const list = document.getElementById(`commentList-${id}`);
-            const newComment = document.createElement('li');
-            newComment.textContent = `✍️ ${text}`;
-            list.appendChild(newComment);
-
-            input.value = "";
-            list.scrollTop = list.scrollHeight;
-        }
-
-        // 엔터키 지원
-        function handleEnter(event, id) {
-            if (event.key === "Enter") {
-                addComment(id);
-            }
-        }
-    </script>
+  <script>
+    // JS: 카드 클릭 시 콘솔 기록
+    const cards = document.querySelectorAll('.card');
+    cards.forEach((card, index) => {
+      card.addEventListener('click', () => {
+        console.log(`${index + 1}번 카드가 클릭되어 이동합니다.`);
+      });
+    });
+  </script>
 </body>
 </html>
-  
-  
-  
-
-
+      
 
    
-
+     
 
 
 
